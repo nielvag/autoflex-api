@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProductsModule } from './products/products.module';
+import { ProductModule } from './products/products.module';
 import { RawMaterialsModule } from './raw-materials/raw-materials.module';
 import { ProductRawMaterialsModule } from './product-raw-materials/product-raw-materials.module';
 import { ProductionPlanModule } from './production-plan/production-plan.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Product } from './products/entities/product.entity';
+import { RawMaterial } from './raw-materials/entities/raw-material.entity';
+import { ProductRawMaterial } from './product-raw-materials/entities/product-raw-material.entity';
 
 @Module({
   imports: [
@@ -25,7 +28,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         password: config.get<string>('DB_PASS'),
         database: config.get<string>('DB_NAME'),
 
-        autoLoadEntities: true,
+        entities: [Product, RawMaterial, ProductRawMaterial],
         synchronize: false,
         migrationsRun: true,
 
@@ -35,7 +38,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       }),
     }),
 
-    ProductsModule,
+    ProductModule,
     RawMaterialsModule,
     ProductRawMaterialsModule,
     ProductionPlanModule,

@@ -7,16 +7,16 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto';
-import { ProductService } from './products.service';
-import { UpdateProductDto } from './dto/update-product.dto';
+import { RawMaterialService } from './raw-material.service';
+import { CreateRawMaterialDto } from './dto/create-raw-material.dto';
+import { UpdateRawMaterialDto } from './dto/update-raw-material.dto';
 
-@Controller('products')
-export class ProductsController {
-  constructor(private readonly service: ProductService) {}
+@Controller('raw-material')
+export class RawMaterialsController {
+  constructor(private readonly service: RawMaterialService) {}
 
   @Post()
-  create(@Body() dto: CreateProductDto) {
+  create(@Body() dto: CreateRawMaterialDto) {
     return this.service.create(dto);
   }
 
@@ -31,7 +31,7 @@ export class ProductsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateProductDto) {
+  update(@Param('id') id: string, @Body() dto: UpdateRawMaterialDto) {
     return this.service.update(id, dto);
   }
 
