@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:16
-    container_name: autoflex_postgres
+    container_name: autoflex_postgres_test
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}

@@ -15,27 +15,32 @@ import { ProductRawMaterial } from './product-raw-materials/entities/product-raw
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
     }),
 
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
-        host: config.get<string>('DB_HOST'),
-        port: Number(config.get<string>('DB_PORT')),
-        username: config.get<string>('DB_USER'),
-        password: config.get<string>('DB_PASS'),
-        database: config.get<string>('DB_NAME'),
+      useFactory: (config: ConfigService) => {
+        const isTest = process.env.NODE_ENV === 'test';
 
-        entities: [Product, RawMaterial, ProductRawMaterial],
-        synchronize: false,
-        migrationsRun: true,
+        return {
+          type: 'postgres',
+          host: config.get<string>('DB_HOST'),
+          port: Number(config.get<string>('DB_PORT')),
+          username: config.get<string>('DB_USER'),
+          password: config.get<string>('DB_PASS'),
+          database: config.get<string>('DB_NAME'),
 
-        // logs
-        logging: ['error', 'schema'],
-        migrations: [__dirname + '/migrations/*{.ts,.js}'],
-      }),
+          entities: [Product, RawMaterial, ProductRawMaterial],
+          synchronize: isTest,
+          dropSchema: isTest,
+          migrationsRun: !isTest,
+
+          // logs
+          logging: ['error', 'schema'],
+          migrations: [__dirname + '/migrations/*{.ts,.js}'],
+        };
+      },
     }),
 
     ProductModule,
