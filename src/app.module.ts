@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './products/entities/product.entity';
 import { RawMaterial } from './raw-materials/entities/raw-material.entity';
 import { ProductRawMaterial } from './product-raw-materials/entities/product-raw-material.entity';
+import { TestUtilsModule } from './test-utils/test-utils.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { ProductRawMaterial } from './product-raw-materials/entities/product-raw
     RawMaterialsModule,
     ProductRawMaterialsModule,
     ProductionPlanModule,
+    ...(process.env.NODE_ENV === 'test' ? [TestUtilsModule] : []),
   ],
   controllers: [AppController],
   providers: [AppService],
