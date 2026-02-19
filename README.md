@@ -1,98 +1,203 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🚀 Autoflex API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST para gerenciamento de:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- 📦 Produtos
+- 🧱 Matérias-primas
+- 🔗 Associação Produto x Matéria-prima
+- 📊 Geração de Plano de Produção
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🏗️ Tecnologias Utilizadas
 
-## Project setup
+- **Node.js**
+- **NestJS**
+- **TypeORM**
+- **PostgreSQL**
+- **Docker**
+- **Decimal.js** (para cálculos monetários e de estoque com precisão)
+- **Class-validator**
 
-```bash
-$ npm install
-```
+---
 
-## Compile and run the project
+# 📦 Pré-requisitos
 
-```bash
-# development
-$ npm run start
+Antes de rodar o projeto, você precisa ter instalado:
 
-# watch mode
-$ npm run start:dev
+- Node.js (v18+ recomendado)
+- Docker
+- Docker Compose
 
-# production mode
-$ npm run start:prod
-```
+---
 
-## Run tests
+# 🐳 Rodando o Projeto
+
+## 1️⃣ Subir o banco de dados (PostgreSQL)
+
+Primeira vez:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+docker compose up -d --build
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Demais vezes:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+docker compose up -d
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Isso irá subir o container do PostgreSQL.
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+## 2️⃣ Instalar dependências
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+npm install
+```
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 3️⃣ Rodar a aplicação
 
-## Stay in touch
+Modo normal:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+npm run start
+```
 
-## License
+Modo desenvolvimento (watch):
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```bash
+npm run start:dev
+```
+
+Modo debug:
+
+```bash
+npm run start:debug
+```
+
+---
+
+# 🗄️ Banco de Dados
+
+O banco roda via Docker e expõe a porta padrão:
+
+```
+5432
+```
+
+As configurações ficam no `docker-compose.yml`.
+
+---
+
+# 🔄 Migrations
+
+Para gerar migration:
+
+```bash
+npm run migration:generate
+```
+
+Para rodar migrations:
+
+```bash
+npm run migration:run
+```
+
+---
+
+# 📡 Endpoints Principais
+
+## Produtos
+
+- `GET /products`
+- `GET /products/:id`
+- `POST /products`
+- `PATCH /products/:id`
+- `DELETE /products/:id`
+
+---
+
+## Matérias-primas
+
+- `GET /raw-materials`
+- `GET /raw-materials/:id`
+- `POST /raw-materials`
+- `PATCH /raw-materials/:id`
+- `DELETE /raw-materials/:id`
+
+---
+
+## Associação Produto x Matéria-prima
+
+- `GET /product-raw-materials/:productId`
+- `PUT /product-raw-materials/:productId/:rawMaterialId`
+- `DELETE /product-raw-materials/:productId/:rawMaterialId`
+
+---
+
+## 📊 Plano de Produção
+
+- `GET /production-plan`
+
+Gera automaticamente o plano de produção baseado:
+
+- No estoque disponível
+- Na quantidade necessária por produto
+- Priorizando produtos com maior valor
+
+---
+
+# 💰 Precisão Monetária
+
+Este projeto utiliza `decimal.js` para evitar erros de precisão com `number` do JavaScript.
+
+Exemplo de problema evitado:
+
+```js
+0.1 + 0.2 !== 0.3;
+```
+
+Por isso valores monetários e de estoque são manipulados com `Decimal`.
+
+---
+
+# 🧠 Regras de Negócio Importantes
+
+- Não é possível excluir uma matéria-prima se ela estiver vinculada a um produto.
+- Não é possível duplicar códigos de produto ou matéria-prima.
+- O plano de produção falha caso não haja estoque suficiente.
+
+---
+
+# 📌 Observações
+
+- A aplicação roda por padrão na porta:
+
+```
+http://localhost:3000
+```
+
+- Certifique-se de que essa porta não esteja ocupada.
+
+---
+
+# 📈 Possíveis Melhorias Futuras
+
+- Paginação
+- Autenticação JWT
+- Controle de usuários
+- Logs estruturados
+- Testes E2E
+- Swagger Documentation
+
+---
+
+# 👨‍💻 Autor
+
+Desenvolvido por Nielson Vágno.
+
+---
