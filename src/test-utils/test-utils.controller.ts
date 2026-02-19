@@ -1,7 +1,7 @@
 import { Controller, Post } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
-@Controller('test-utils')
+@Controller('test')
 export class TestUtilsController {
   constructor(private readonly DataSouce: DataSource) {}
 

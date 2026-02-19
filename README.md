@@ -31,7 +31,7 @@ Antes de rodar o projeto, você precisa ter instalado:
 
 ---
 
-# 🐳 Rodando o Projeto
+# 🐳 Rodando o Projeto (Ambiente de Desenvolvimento)
 
 ## 1️⃣ Subir o banco de dados (PostgreSQL)
 
@@ -81,15 +81,85 @@ npm run start:debug
 
 ---
 
+# 🧪 Ambiente de Testes (E2E / Cypress)
+
+O sistema possui um **ambiente exclusivo para testes**, com banco de dados separado do ambiente de desenvolvimento.
+
+## 📌 Características do ambiente de teste
+
+- Utiliza banco **PostgreSQL próprio**
+- Roda em porta diferente da base de desenvolvimento
+- Sempre inicia com o banco **zerado**
+- Possui endpoint específico para reset do banco
+- Totalmente isolado do ambiente principal
+
+---
+
+## 🐳 1️⃣ Subir o banco de dados de teste
+
+```bash
+docker compose -f docker-compose.test.yml up -d
+```
+
+Esse comando sobe o PostgreSQL exclusivo para testes.
+
+---
+
+## 🚀 2️⃣ Rodar a API em modo de teste
+
+```bash
+npm run start:test
+```
+
+Esse comando:
+
+- Define `NODE_ENV=test`
+- Conecta no banco de teste
+- Recria o schema automaticamente
+- Garante que o banco inicie completamente limpo
+
+Sempre que a API é iniciada nesse modo, o banco começa zerado.
+
+---
+
+## 🔄 Reset manual do banco de testes
+
+Existe um endpoint exclusivo para ambiente de teste:
+
+```
+POST /test-utils/reset
+```
+
+Esse endpoint:
+
+- Remove todas as tabelas
+- Recria o schema
+- Deixa o banco completamente limpo
+
+⚠️ Esse endpoint só existe quando a aplicação roda com `NODE_ENV=test`.
+
+Exemplo de uso (Cypress):
+
+```js
+cy.request('POST', 'http://localhost:3000/test-utils/reset');
+```
+
+Recomendado executar antes de cada teste E2E.
+
+---
+
 # 🗄️ Banco de Dados
 
-O banco roda via Docker e expõe a porta padrão:
+## 🔹 Desenvolvimento
 
-```
-5432
-```
+- Porta: `5432`
+- Configuração: `docker-compose.yml`
 
-As configurações ficam no `docker-compose.yml`.
+## 🔹 Teste
+
+- Porta: `5433`
+- Configuração: `docker-compose.test.yml`
+- Banco isolado e não persistente
 
 ---
 
@@ -106,6 +176,8 @@ Para rodar migrations:
 ```bash
 npm run migration:run
 ```
+
+No ambiente de teste as migrations não são executadas automaticamente, pois o schema é recriado via `synchronize`.
 
 ---
 
@@ -182,6 +254,7 @@ http://localhost:3000
 ```
 
 - Certifique-se de que essa porta não esteja ocupada.
+- Nunca utilize o banco de desenvolvimento para testes E2E.
 
 ---
 
@@ -191,7 +264,7 @@ http://localhost:3000
 - Autenticação JWT
 - Controle de usuários
 - Logs estruturados
-- Testes E2E
+- Testes E2E automatizados via CI
 - Swagger Documentation
 
 ---
@@ -199,5 +272,3 @@ http://localhost:3000
 # 👨‍💻 Autor
 
 Desenvolvido por Nielson Vágno.
-
----
