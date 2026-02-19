@@ -16,7 +16,7 @@ import { TestUtilsModule } from './test-utils/test-utils.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
+      envFilePath: '.env',
     }),
 
     TypeOrmModule.forRootAsync({
@@ -26,11 +26,11 @@ import { TestUtilsModule } from './test-utils/test-utils.module';
 
         return {
           type: 'postgres',
-          host: config.get<string>('DB_HOST'),
-          port: Number(config.get<string>('DB_PORT')),
-          username: config.get<string>('DB_USER'),
-          password: config.get<string>('DB_PASS'),
-          database: config.get<string>('DB_NAME'),
+          host: config.get<string>(`DB_HOST${isTest ? '_TEST' : ''}`),
+          port: Number(config.get<string>(`DB_PORT${isTest ? '_TEST' : ''}`)),
+          username: config.get<string>(`DB_USER${isTest ? '_TEST' : ''}`),
+          password: config.get<string>(`DB_PASS${isTest ? '_TEST' : ''}`),
+          database: config.get<string>(`DB_NAME${isTest ? '_TEST' : ''}`),
 
           entities: [Product, RawMaterial, ProductRawMaterial],
           synchronize: isTest,
